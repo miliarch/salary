@@ -40,7 +40,7 @@ class Salary:
         self._handle_kwargs(kwargs)
 
     def __repr__(self):
-        return f"{self.yearly}"
+        return f"{round(self.yearly, 2)}"
 
     def _init_yearly_occurrences(self):
         self.hours_in_year = self._period_yearly_defaults['hour']
