@@ -22,13 +22,13 @@ class Salary:
                      valid options: [hour|day|week|fortnight|month|quarter|semester|year]
 
         Keyword arguments:
-            kwargs['hours']: custom hours in year (int)
-            kwargs['days']: custom days in year (int)
-            kwargs['weeks']: custom weeks in year (int)
-            kwargs['fortnights']: custom fortnights in year (int)
-            kwargs['months']: custom months in year (int)
-            kwargs['quarters']: custom quarters in year (int)
-            kwargs['semesters']: custom semesters in year (int)
+            kwargs['hours']: custom hours in year (int) (default: 2080)
+            kwargs['days']: custom days in year (int) (default: 260)
+            kwargs['weeks']: custom weeks in year (int) (default: 52)
+            kwargs['fortnights']: custom fortnights in year (int) (default: 26)
+            kwargs['months']: custom months in year (int) (default: 12)
+            kwargs['quarters']: custom quarters in year (int) (default: 4)
+            kwargs['semesters']: custom semesters in year (int) (default: 2)
         """
         self._init_yearly_occurrences()
         self._handle_args(args)
