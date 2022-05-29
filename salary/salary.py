@@ -29,6 +29,11 @@ class Salary:
             kwargs['months']: custom months in year (int) (default: 12)
             kwargs['quarters']: custom quarters in year (int) (default: 4)
             kwargs['semesters']: custom semesters in year (int) (default: 2)
+        
+        Examples:
+            Salary(15, 'hour')
+            Salary(31200, 'year')
+            Salary(15, 'hour', hours=1040, days=130, weeks=26)
         """
         self._init_yearly_occurrences()
         self._handle_args(args)
