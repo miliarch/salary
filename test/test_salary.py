@@ -16,10 +16,14 @@ class TestSalary(unittest.TestCase):
         with self.assertRaises(ValueError):
             s = Salary(15, 'invalid')
 
-    def test_invalid_input_invalid_kwargs(self):
+    def test_invalid_input_invalid_kwarg_key(self):
         s = Salary(15, 'hour', centuries=1)
         with self.assertRaises(AttributeError):
             s.centuries_in_year
+
+    def test_invalid_input_invalid_kwarg_value(self):
+        with self.assertRaises(ValueError):
+            Salary(15, 'hour', hours='1a')
 
     def test_valid_input_minimal(self):
         s1 = Salary(15, 'hour')
@@ -72,6 +76,10 @@ class TestSalary(unittest.TestCase):
     def test_custom_periods_in_year_year_ineffective(self):
         s = Salary(15, 'hour', years=3)
         self.assertEqual(s.years_in_year, 1)
+
+    def test_custom_period_value_int_casting(self):
+        s = Salary(15, 'hour', hours=2075.5)
+        self.assertEqual(s.hours_in_year, 2075)
 
     def test_custom_periods_in_year_full(self):
         s = Salary(15, 'hour',
