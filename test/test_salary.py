@@ -157,9 +157,6 @@ class TestSalary(unittest.TestCase):
         self.assertEqual(s4.semesterly, Decimal(7800))
         self.assertEqual(s4.yearly, Decimal(15600))
 
-    def test_valid_input_valid_kwargs(self):
-        s1 = Salary(15, 'hour', hours=1040, days=100)
-
 
 if __name__ == '__main__':
     unittest.main()
