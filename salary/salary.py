@@ -1,5 +1,5 @@
-from decimal import Decimal, InvalidOperation
 from operator import mul, truediv
+from .formatters import Numeric
 
 class Salary:
 
@@ -41,8 +41,13 @@ class Salary:
         self._handle_kwargs(kwargs)
 
     def __repr__(self):
-        out_str = f'{self.format_dollars(self.amount)} '
-        out_str += f'per {self.period}'
+        out_str = 'Salary('
+        out_str += f"{self.amount}, '{self.period}'"
+        for key in self._period_yearly_defaults:
+            value = getattr(self, f'{key}s_in_year')
+            if value != self._period_yearly_defaults[key]:
+                out_str += f', {key}s={value}'
+        out_str += ')'
         return out_str
 
     def _init_yearly_occurrences(self):
@@ -57,8 +62,8 @@ class Salary:
 
     def _handle_args(self, args):
         try:
-            self.amount = Decimal(args[0])
-        except (IndexError, InvalidOperation) as err:
+            self.amount = Numeric(args[0])
+        except (IndexError, ValueError) as err:
             raise err
 
         try:
@@ -74,47 +79,44 @@ class Salary:
             if k[:-1] in self._period_yearly_defaults and k[:-1] != 'year':
                 setattr(self, f'{k}_in_year', int(v))
 
-    @staticmethod
-    def format_raw(arg):
-        return arg
-
-    @staticmethod
-    def format_dollars(decimal):
-        return f'${decimal:,.2f}'
-
-    def per_period(self, amount, period, operation=truediv, formatter=format_raw):
+    def per_period(self, amount, period, operation=truediv):
         """ Calculate amount per given period using operation callback function
+
+        Parameters:
+            amount: required: the amount to base calculation on (Decimal)
+            period: required: the period to use for the calculation (str)
+            operation: optional: which operator to use against (amount, period) (function)
         """
-        return formatter(operation(amount, getattr(self, f'{period}s_in_year')))
+        return Numeric(operation(amount, getattr(self, f'{period}s_in_year')))
 
     @property
     def yearly(self):
-        return self.per_period(self.amount, self.period, operation=mul)
+        return self.per_period(self.amount.decimal, self.period, operation=mul)
 
     @property
     def hourly(self):
-        return self.per_period(self.yearly, 'hour')
+        return self.per_period(self.yearly.decimal, 'hour')
 
     @property
     def daily(self):
-        return self.per_period(self.yearly, 'day')
+        return self.per_period(self.yearly.decimal, 'day')
 
     @property
     def weekly(self):
-        return self.per_period(self.yearly, 'week')
+        return self.per_period(self.yearly.decimal, 'week')
 
     @property
     def fortnightly(self):
-        return self.per_period(self.yearly, 'fortnight')
+        return self.per_period(self.yearly.decimal, 'fortnight')
 
     @property
     def monthly(self):
-        return self.per_period(self.yearly, 'month')
+        return self.per_period(self.yearly.decimal, 'month')
 
     @property
     def quarterly(self):
-        return self.per_period(self.yearly, 'quarter')
+        return self.per_period(self.yearly.decimal, 'quarter')
 
     @property
     def semesterly(self):
-        return self.per_period(self.yearly, 'semester')
+        return self.per_period(self.yearly.decimal, 'semester')

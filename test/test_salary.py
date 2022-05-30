@@ -5,7 +5,7 @@ from salary.salary import Salary
 class TestSalary(unittest.TestCase):
 
     def test_invalid_input_invalid_amount(self):
-        with self.assertRaises(InvalidOperation):
+        with self.assertRaises(ValueError):
             s = Salary('15a')
 
     def test_invalid_input_no_period(self):
@@ -34,9 +34,9 @@ class TestSalary(unittest.TestCase):
         self.assertIsNotNone(s2)
         self.assertIsNotNone(s3)
 
-        self.assertIsNotNone(s1.amount)
-        self.assertIsNotNone(s2.amount)
-        self.assertIsNotNone(s3.amount)
+        self.assertIsNotNone(s1.amount.decimal)
+        self.assertIsNotNone(s2.amount.decimal)
+        self.assertIsNotNone(s3.amount.decimal)
 
         self.assertIsNotNone(s1.period)
         self.assertIsNotNone(s2.period)
@@ -46,17 +46,17 @@ class TestSalary(unittest.TestCase):
         self.assertIsInstance(s2, Salary)
         self.assertIsInstance(s3, Salary)
 
-        self.assertIsInstance(s1.amount, Decimal)
-        self.assertIsInstance(s2.amount, Decimal)
-        self.assertIsInstance(s3.amount, Decimal)
+        self.assertIsInstance(s1.amount.decimal, Decimal)
+        self.assertIsInstance(s2.amount.decimal, Decimal)
+        self.assertIsInstance(s3.amount.decimal, Decimal)
 
         self.assertIsInstance(s1.period, str)
         self.assertIsInstance(s2.period, str)
         self.assertIsInstance(s3.period, str)
 
-        self.assertEqual(s1.amount, 15.0)
-        self.assertEqual(s2.amount, 15.0)
-        self.assertEqual(s3.amount, 15.0)
+        self.assertEqual(s1.amount.decimal, 15.0)
+        self.assertEqual(s2.amount.decimal, 15.0)
+        self.assertEqual(s3.amount.decimal, 15.0)
 
         self.assertEqual(s1.period, 'hour')
         self.assertEqual(s2.period, 'hour')
@@ -119,14 +119,14 @@ class TestSalary(unittest.TestCase):
 
     def test_salary_period_calculations(self):
         s1 = Salary(15, 'hour')
-        self.assertEqual(s1.hourly, Decimal(15))
-        self.assertEqual(s1.daily, Decimal(120))
-        self.assertEqual(s1.weekly, Decimal(600))
-        self.assertEqual(s1.fortnightly, Decimal(1200))
-        self.assertEqual(s1.monthly, Decimal(2600))
-        self.assertEqual(s1.quarterly, Decimal(7800))
-        self.assertEqual(s1.semesterly, Decimal(15600))
-        self.assertEqual(s1.yearly, Decimal(31200))
+        self.assertEqual(s1.hourly.decimal, Decimal(15))
+        self.assertEqual(s1.daily.decimal, Decimal(120))
+        self.assertEqual(s1.weekly.decimal, Decimal(600))
+        self.assertEqual(s1.fortnightly.decimal, Decimal(1200))
+        self.assertEqual(s1.monthly.decimal, Decimal(2600))
+        self.assertEqual(s1.quarterly.decimal, Decimal(7800))
+        self.assertEqual(s1.semesterly.decimal, Decimal(15600))
+        self.assertEqual(s1.yearly.decimal, Decimal(31200))
 
         s2 = Salary(15, 'hour',
                    hours=1040,
@@ -136,34 +136,34 @@ class TestSalary(unittest.TestCase):
                    months=10,
                    quarters=2,
                    semesters=1)
-        self.assertEqual(s2.hourly, Decimal(15))
-        self.assertEqual(s2.daily, Decimal(120))
-        self.assertEqual(s2.weekly, Decimal(600))
-        self.assertEqual(s2.fortnightly, Decimal(1200))
-        self.assertEqual(s2.monthly, Decimal(1560))
-        self.assertEqual(s2.quarterly, Decimal(7800))
-        self.assertEqual(s2.semesterly, Decimal(15600))
-        self.assertEqual(s2.yearly, Decimal(15600))
+        self.assertEqual(s2.hourly.decimal, Decimal(15))
+        self.assertEqual(s2.daily.decimal, Decimal(120))
+        self.assertEqual(s2.weekly.decimal, Decimal(600))
+        self.assertEqual(s2.fortnightly.decimal, Decimal(1200))
+        self.assertEqual(s2.monthly.decimal, Decimal(1560))
+        self.assertEqual(s2.quarterly.decimal, Decimal(7800))
+        self.assertEqual(s2.semesterly.decimal, Decimal(15600))
+        self.assertEqual(s2.yearly.decimal, Decimal(15600))
 
         s3 = Salary(15, 'hour', hours=1040, days=130)
-        self.assertEqual(s3.hourly, Decimal(15))
-        self.assertEqual(s3.daily, Decimal(120))
-        self.assertEqual(s3.weekly, Decimal(300))
-        self.assertEqual(s3.fortnightly, Decimal(600))
-        self.assertEqual(s3.monthly, Decimal(1300))
-        self.assertEqual(s3.quarterly, Decimal(3900))
-        self.assertEqual(s3.semesterly, Decimal(7800))
-        self.assertEqual(s3.yearly, Decimal(15600))
+        self.assertEqual(s3.hourly.decimal, Decimal(15))
+        self.assertEqual(s3.daily.decimal, Decimal(120))
+        self.assertEqual(s3.weekly.decimal, Decimal(300))
+        self.assertEqual(s3.fortnightly.decimal, Decimal(600))
+        self.assertEqual(s3.monthly.decimal, Decimal(1300))
+        self.assertEqual(s3.quarterly.decimal, Decimal(3900))
+        self.assertEqual(s3.semesterly.decimal, Decimal(7800))
+        self.assertEqual(s3.yearly.decimal, Decimal(15600))
 
         s4 = Salary(15600, 'year', hours=1040, days=130)
-        self.assertEqual(s4.hourly, Decimal(15))
-        self.assertEqual(s4.daily, Decimal(120))
-        self.assertEqual(s4.weekly, Decimal(300))
-        self.assertEqual(s4.fortnightly, Decimal(600))
-        self.assertEqual(s4.monthly, Decimal(1300))
-        self.assertEqual(s4.quarterly, Decimal(3900))
-        self.assertEqual(s4.semesterly, Decimal(7800))
-        self.assertEqual(s4.yearly, Decimal(15600))
+        self.assertEqual(s4.hourly.decimal, Decimal(15))
+        self.assertEqual(s4.daily.decimal, Decimal(120))
+        self.assertEqual(s4.weekly.decimal, Decimal(300))
+        self.assertEqual(s4.fortnightly.decimal, Decimal(600))
+        self.assertEqual(s4.monthly.decimal, Decimal(1300))
+        self.assertEqual(s4.quarterly.decimal, Decimal(3900))
+        self.assertEqual(s4.semesterly.decimal, Decimal(7800))
+        self.assertEqual(s4.yearly.decimal, Decimal(15600))
 
 
 if __name__ == '__main__':
