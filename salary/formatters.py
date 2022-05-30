@@ -16,6 +16,9 @@ class Numeric:
     def __repr__(self):
         return f'Numeric({repr(self.decimal)})'
 
+    def __str__(self):
+        return f'{self.decimal}'
+
     @staticmethod
     def format_dollars(value):
         """ Convert number value to Dollars, e.g.: 12345 -> "$12,345.00" """

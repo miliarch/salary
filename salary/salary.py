@@ -50,6 +50,9 @@ class Salary:
         out_str += ')'
         return out_str
 
+    def __str__(self):
+        return f'{self.amount.dollars} per {self.period}'
+
     def _init_yearly_occurrences(self):
         self.hours_in_year = self._period_yearly_defaults['hour']
         self.days_in_year = self._period_yearly_defaults['day']
