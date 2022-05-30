@@ -2,6 +2,7 @@ from operator import mul, truediv
 from .formatters import Numeric
 
 class Salary:
+    """ Class for calculation and conversion of salary by time period """
 
     _period_yearly_defaults = {
         'hour': 2080,
@@ -15,7 +16,7 @@ class Salary:
     }
 
     def __init__(self, *args, **kwargs):
-        """ Instantiate Salary
+        """ Salary initialization
 
         Arguments:
             args[0]: required: salary amount (float)
