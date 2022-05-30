@@ -41,7 +41,9 @@ class Salary:
         self._handle_kwargs(kwargs)
 
     def __repr__(self):
-        return f"{round(self.yearly, 2)}"
+        out_str = f'{self.format_dollars(self.amount)} '
+        out_str += f'per {self.period}'
+        return out_str
 
     def _init_yearly_occurrences(self):
         self.hours_in_year = self._period_yearly_defaults['hour']
@@ -72,10 +74,18 @@ class Salary:
             if k[:-1] in self._period_yearly_defaults and k[:-1] != 'year':
                 setattr(self, f'{k}_in_year', int(v))
 
-    def per_period(self, amount, period, operation=truediv):
+    @staticmethod
+    def format_raw(arg):
+        return arg
+
+    @staticmethod
+    def format_dollars(decimal):
+        return f'${decimal:,.2f}'
+
+    def per_period(self, amount, period, operation=truediv, formatter=format_raw):
         """ Calculate amount per given period using operation callback function
         """
-        return operation(amount, getattr(self, f'{period}s_in_year'))
+        return formatter(operation(amount, getattr(self, f'{period}s_in_year')))
 
     @property
     def yearly(self):
