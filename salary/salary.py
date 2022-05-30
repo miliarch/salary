@@ -1,4 +1,5 @@
 from decimal import Decimal, InvalidOperation
+from operator import mul, truediv
 
 class Salary:
 
@@ -71,34 +72,39 @@ class Salary:
             if k[:-1] in self._period_yearly_defaults and k[:-1] != 'year':
                 setattr(self, f'{k}_in_year', int(v))
 
+    def per_period(self, amount, period, operation=truediv):
+        """ Calculate amount per given period using operation callback function
+        """
+        return operation(amount, getattr(self, f'{period}s_in_year'))
+
     @property
     def yearly(self):
-        return self.amount * getattr(self, f'{self.period}s_in_year')
+        return self.per_period(self.amount, self.period, operation=mul)
 
     @property
     def hourly(self):
-        return self.yearly / getattr(self, 'hours_in_year')
+        return self.per_period(self.yearly, 'hour')
 
     @property
     def daily(self):
-        return self.yearly / getattr(self, 'days_in_year')
+        return self.per_period(self.yearly, 'day')
 
     @property
     def weekly(self):
-        return self.yearly / getattr(self, 'weeks_in_year')
+        return self.per_period(self.yearly, 'week')
 
     @property
     def fortnightly(self):
-        return self.yearly / getattr(self, 'fortnights_in_year')
+        return self.per_period(self.yearly, 'fortnight')
 
     @property
     def monthly(self):
-        return self.yearly / getattr(self, 'months_in_year')
+        return self.per_period(self.yearly, 'month')
 
     @property
     def quarterly(self):
-        return self.yearly / getattr(self, 'quarters_in_year')
+        return self.per_period(self.yearly, 'quarter')
 
     @property
     def semesterly(self):
-        return self.yearly / getattr(self, 'semesters_in_year')
+        return self.per_period(self.yearly, 'semester')
