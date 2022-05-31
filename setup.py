@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).parent
 long_description = (BASE_DIR / "README.md").read_text()
 setup(
     name="wage",
-    version="0.3",
+    version="0.4",
     packages=find_packages(),
     python_requires='>=3.7',
     install_requires=[],

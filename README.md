@@ -9,9 +9,9 @@ Use the following command to install the `wage` module from PyPi with pip:
 pip install wage
 ```
 
-Or to install the latest version of this repository with pip:
+Or to install the latest version of the repository with pip:
 ```
-pip install https://github.com/miliarch/wage.git
+pip install git+https://github.com/miliarch/wage.git
 ```
 
 Or you can clone this repository to your system:
