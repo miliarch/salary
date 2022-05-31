@@ -1,20 +1,21 @@
 import unittest
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 from salary import Salary
+
 
 class TestSalary(unittest.TestCase):
 
     def test_invalid_input_invalid_amount(self):
         with self.assertRaises(ValueError):
-            s = Salary('15a')
+            Salary('15a')
 
     def test_invalid_input_no_period(self):
         with self.assertRaises(IndexError):
-            s = Salary(15)
+            Salary(15)
 
     def test_invalid_input_invalid_period(self):
         with self.assertRaises(ValueError):
-            s = Salary(15, 'invalid')
+            Salary(15, 'invalid')
 
     def test_invalid_input_invalid_kwarg_key(self):
         s = Salary(15, 'hour', centuries=1)
@@ -129,13 +130,13 @@ class TestSalary(unittest.TestCase):
         self.assertEqual(s1.yearly.decimal, Decimal(31200))
 
         s2 = Salary(15, 'hour',
-                   hours=1040,
-                   days=130,
-                   weeks=26,
-                   fortnights=13,
-                   months=10,
-                   quarters=2,
-                   semesters=1)
+                    hours=1040,
+                    days=130,
+                    weeks=26,
+                    fortnights=13,
+                    months=10,
+                    quarters=2,
+                    semesters=1)
         self.assertEqual(s2.hourly.decimal, Decimal(15))
         self.assertEqual(s2.daily.decimal, Decimal(120))
         self.assertEqual(s2.weekly.decimal, Decimal(600))

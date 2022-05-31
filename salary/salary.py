@@ -1,6 +1,7 @@
 from operator import mul, truediv
 from .formatters import Numeric
 
+
 class Salary:
     """ Class for calculation and conversion of salary by time period """
 
@@ -31,7 +32,7 @@ class Salary:
             kwargs['months']: custom months in year (int) (default: 12)
             kwargs['quarters']: custom quarters in year (int) (default: 4)
             kwargs['semesters']: custom semesters in year (int) (default: 2)
-        
+
         Examples:
             Salary(15, 'hour')
             Salary(31200, 'year')

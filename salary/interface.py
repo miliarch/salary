@@ -1,6 +1,7 @@
 import sys
 from .salary import Salary
 
+
 def salary_report(salary):
     periods = [
         'hourly',

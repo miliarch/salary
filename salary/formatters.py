@@ -1,5 +1,6 @@
 from decimal import Decimal, InvalidOperation
 
+
 class Numeric:
     """ Object to store and convert a numeric value to various other formats
     """
@@ -10,7 +11,7 @@ class Numeric:
         else:
             try:
                 self.value = Decimal(value)
-            except (InvalidOperation) as err:
+            except (InvalidOperation):
                 raise ValueError(f'Value not numeric: {value}')
 
     def __repr__(self):

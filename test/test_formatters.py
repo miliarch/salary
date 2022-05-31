@@ -1,12 +1,13 @@
 import unittest
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 from salary import Numeric
+
 
 class TestFormatters(unittest.TestCase):
 
     def test_numeric_invalid_input(self):
         with self.assertRaises(ValueError):
-            n = Numeric('1a')
+            Numeric('1a')
 
     def test_numeric_valid_input(self):
         n = Numeric(1)
