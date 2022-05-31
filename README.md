@@ -1,17 +1,22 @@
-# Salary calculator module
+# Wage calculator module
 
 Module for salary calculations and conversions
 
 ## Installation
 
-Use the following command to install the `salary` module with pip:
+Use the following command to install the `wage` module from PyPi with pip:
 ```
-pip install https://github.com/miliarch/salary.git
+pip install wage
+```
+
+Or to install the latest version of this repository with pip:
+```
+pip install https://github.com/miliarch/wage.git
 ```
 
 Or you can clone this repository to your system:
 ```
-git clone https://github.com/miliarch/salary.git
+git clone https://github.com/miliarch/wage.git
 ```
 
 ## Usage - Salary object
@@ -116,11 +121,11 @@ class Salary(builtins.object)
 
 The command line interface is mainly for demonstration purposes. If you find it helpful, feel free to use it.
 
-The `salary` entrypoint uses a similar convention to passing arguments in during a new Salary object instantiation.
+The `wage` entrypoint uses a similar convention to passing arguments in during a new Salary object instantiation.
 
 ### Examples:
 ```
-$ salary 15 hour
+$ wage 15 hour
 Hourly         : $15.00
 Daily          : $120.00
 Weekly         : $600.00
@@ -132,7 +137,7 @@ Yearly         : $31,200.00
 ```
 
 ```
-$ salary 15 hour hours=1500
+$ wage 15 hour hours=1500
 Hourly         : $15.00
 Daily          : $86.54
 Weekly         : $432.69
