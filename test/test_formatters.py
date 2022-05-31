@@ -1,6 +1,6 @@
 import unittest
 from decimal import Decimal, InvalidOperation
-from salary.formatters import Numeric
+from salary import Numeric
 
 class TestFormatters(unittest.TestCase):
 
