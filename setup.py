@@ -10,8 +10,7 @@ setup(
     description='A python module for modeling and converting salary/income information',
     long_description='README.md',
     long_description_content_type="text/markdown",
-    license='LICENSE.md',
-    license_content_type="text/markdown"
+    license='MIT',
     keywords='wage salary income convert model',
     url='https://github.com/miliarch/wage',
     project_urls={
