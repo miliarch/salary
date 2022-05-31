@@ -47,9 +47,6 @@ jobs:
       run: |
         ls -la
         ls -la test
-    - name: run formatters test
+    - name: run tests
       run: |
-        python -m unittest ./test/test_formatters.py
-    - name: run salary test
-      run: |
-        python -m unittest ./test/test_salary.py
+         python -m unittest discover -s ./test
