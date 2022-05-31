@@ -1,6 +1,6 @@
 import unittest
 from decimal import Decimal
-from salary import Numeric
+from wage import Numeric
 
 
 class TestFormatters(unittest.TestCase):

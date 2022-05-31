@@ -1,6 +1,6 @@
 import unittest
 from decimal import Decimal
-from salary import Salary
+from wage import Salary
 
 
 class TestSalary(unittest.TestCase):
