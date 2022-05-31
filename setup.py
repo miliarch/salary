@@ -1,14 +1,17 @@
 from setuptools import setup, find_packages
+from pathlib import Path
+BASE_DIR = Path(__file__).parent
+long_description = (BASE_DIR / "README.md").read_text()
 setup(
     name="wage",
-    version="0.1",
+    version="0.2",
     packages=find_packages(),
     python_requires='>=3.7',
     install_requires=[],
     author='Marcus Bowman',
     author_email='miliarch.mb@gmail.com',
     description='A python module for modeling and converting salary/income information',
-    long_description='README.md',
+    long_description=long_description,
     long_description_content_type="text/markdown",
     license='MIT',
     keywords='wage salary income convert model',
