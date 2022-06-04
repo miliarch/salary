@@ -1,3 +1,4 @@
+import json
 from operator import mul, truediv
 from .formatters import Numeric
 
@@ -93,6 +94,27 @@ class Salary:
             operation: optional: which operator to use against (amount, period) (function)
         """
         return Numeric(operation(amount, getattr(self, f'{period}s_in_year')))
+
+    def serialize_per_period(self, format='float'):
+        obj = {}
+        for period in self._period_yearly_defaults:
+            obj[period] = getattr(self.per_period(self.yearly.decimal, period), format)
+        return json.dumps(obj)
+
+    def serialize_times_per_year(self):
+        obj = {}
+        for period in self._period_yearly_defaults:
+            obj[period] = getattr(self, f'{period}s_in_year')
+        return json.dumps(obj)
+
+    def serialize(self):
+        obj = {}
+        obj['amount'] = self.amount.float
+        obj['period'] = self.period
+        obj['per_period_numeric'] = json.loads(self.serialize_per_period(format='float'))
+        obj['per_period_dollars'] = json.loads(self.serialize_per_period(format='dollars'))
+        obj['times_per_year'] = json.loads(self.serialize_times_per_year())
+        return json.dumps(obj)
 
     @property
     def yearly(self):
