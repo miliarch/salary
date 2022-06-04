@@ -1,3 +1,4 @@
+import json
 import unittest
 from decimal import Decimal
 from wage import Numeric
@@ -65,6 +66,39 @@ class TestFormatters(unittest.TestCase):
         self.assertIsInstance(n2.decimal, Decimal)
         self.assertEqual(n1.decimal, Decimal(1.0))
         self.assertEqual(n2.decimal, Decimal(1234.5612))
+
+    def test_dict(self):
+        n = Numeric(1)
+        obj = dict(n)
+        self.assertIsNotNone(obj)
+        self.assertIsInstance(obj, dict)
+        self.assertIsNotNone(obj['value'])
+        self.assertIsNotNone(obj['dollars'])
+        self.assertIsNotNone(obj['float'])
+        self.assertIsNotNone(obj['int'])
+        self.assertIsNotNone(obj['decimal'])
+        self.assertIsInstance(obj['value'], Decimal)
+        self.assertIsInstance(obj['dollars'], str)
+        self.assertIsInstance(obj['float'], float)
+        self.assertIsInstance(obj['int'], int)
+        self.assertIsInstance(obj['decimal'], Decimal)
+        self.assertEqual(obj['value'], Decimal(1))
+        self.assertEqual(obj['dollars'], "$1.00")
+        self.assertEqual(obj['float'], 1.0)
+        self.assertEqual(obj['int'], 1)
+        self.assertEqual(obj['decimal'], Decimal(1))
+
+    def test_serialize(self):
+        n = Numeric(1)
+        obj = json.loads(n.serialize())
+        self.assertIsNotNone(obj)
+        self.assertIsInstance(obj, dict)
+        self.assertIsNotNone(obj['dollars'])
+        self.assertIsNotNone(obj['float'])
+        self.assertIsInstance(obj['dollars'], str)
+        self.assertIsInstance(obj['float'], float)
+        self.assertEqual(obj['dollars'], "$1.00")
+        self.assertEqual(obj['float'], 1.0)
 
 
 if __name__ == '__main__':
