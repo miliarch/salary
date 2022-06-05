@@ -65,8 +65,8 @@ class Salary:
         obj = {}
         obj['amount'] = self.amount
         obj['period'] = self.period
-        obj['per_period'] = json.loads(self.serialize_per_period())
-        obj['times_per_year'] = json.loads(self.serialize_times_per_year())
+        obj['per_period_summary'] = self.per_period_summary
+        obj['times_per_year'] = self.times_per_year
         return obj
 
     def _init_yearly_occurrences(self):
@@ -120,20 +120,14 @@ class Salary:
         obj['times_per_year'] = getattr(self, f'{period}s_in_year')
         return json.dumps(obj)
 
-    def serialize_per_period(self):
+    def serialize_per_period_summary(self):
         """ Serialize all converted amounts per period to json
         """
-        obj = {}
-        for period in self._period_yearly_defaults:
-            obj[period] = json.loads(self.per_period(self.yearly.decimal, period).serialize())
-        return json.dumps(obj)
+        return json.dumps(self.per_period_summary)
 
     def serialize_times_per_year(self):
         """ Serialize all yearly occurrences to json """
-        obj = {}
-        for period in self._period_yearly_defaults:
-            obj[period] = getattr(self, f'{period}s_in_year')
-        return json.dumps(obj)
+        return json.dumps(self.times_per_year)
 
     def serialize(self):
         """ Serialize summary representation of Salary instance to json """
@@ -180,3 +174,19 @@ class Salary:
     def semesterly(self):
         """ Semesterly amount (Numeric) """
         return self.per_period(self.yearly.decimal, 'semester')
+
+    @property
+    def times_per_year(self):
+        """ Dictionary representation of times per year """
+        obj = {}
+        for period in self._period_yearly_defaults:
+            obj[period] = getattr(self, f'{period}s_in_year')
+        return obj
+
+    @property
+    def per_period_summary(self):
+        """ Dictionary representation of per period summary """
+        obj = {}
+        for period in self._period_yearly_defaults:
+            obj[period] = json.loads(self.per_period(self.yearly.decimal, period).serialize())
+        return obj
